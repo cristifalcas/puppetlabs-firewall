@@ -13,11 +13,11 @@
 #   Default: true
 #
 class firewall::linux::redhat (
-  $ensure         = running,
-  $enable         = true,
-  $service_name   = $::firewall::params::service_name,
-  $package_name   = $::firewall::params::package_name,
-  $package_ensure = $::firewall::params::package_ensure,
+  $ensure       = running,
+  $enable       = true,
+  $service_name = $::firewall::params::service_name,
+  $package_name = $::firewall::params::package_name,
+  $pkg_ensure   = $::firewall::params::package_ensure,
 ) inherits ::firewall::params {
 
   # RHEL 7 and later and Fedora 15 and later require the iptables-services
@@ -35,7 +35,7 @@ class firewall::linux::redhat (
 
   if $package_name {
     package { $package_name:
-      ensure => $package_ensure,
+      ensure => $pkg_ensure,
       before => Service[$service_name],
     }
   }

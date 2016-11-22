@@ -14,11 +14,11 @@
 #   Default: true
 #
 class firewall::linux::debian (
-  $ensure         = running,
-  $enable         = true,
-  $service_name   = $::firewall::params::service_name,
-  $package_name   = $::firewall::params::package_name,
-  $package_ensure = $::firewall::params::package_ensure,
+  $ensure       = running,
+  $enable       = true,
+  $service_name = $::firewall::params::service_name,
+  $package_name = $::firewall::params::package_name,
+  $pkg_ensure   = $::firewall::params::package_ensure,
 ) inherits ::firewall::params {
 
   if $package_name {
@@ -28,7 +28,7 @@ class firewall::linux::debian (
         refreshonly => true
     }
     package { $package_name:
-      ensure  => $package_ensure,
+      ensure  => $pkg_ensure,
       require => Exec['iptables-persistent-debconf']
     }
   }
